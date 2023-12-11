@@ -1,4 +1,4 @@
-proc log_temp {{path {C:/Users/t26607bb/Desktop/temp.csv}}} {
+proc log_temp {path} {
 	#open_hw_manager
 	#connect_hw_server -url localhost:3121 -quiet
 	#current_hw_target [get_hw_targets *]
@@ -45,4 +45,3 @@ proc program {bit_file} {
 
 program [lindex $argv 0]
 log_temp [lindex $argv 1]
-#program {C:/Users/t26607bb/Desktop/blank_zu9eg_jtag.bit}
