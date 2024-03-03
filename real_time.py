@@ -15,7 +15,7 @@ def relative_time(reference_time, current_time):
 
 def reformat_time(time_column, reference_time):
     for i in range(len(time_column)):
-        time_column[i].loc = relative_time(reference_time, time_column[i])
+        time_column[i] = relative_time(reference_time, time_column[i])
 
     return time_column
 
