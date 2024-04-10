@@ -35,6 +35,7 @@ def decode(byte):
 
 COM_port = sys.argv[1]
 csv_file_path = sys.argv[2]
+runtime = int(sys.argv[3])
 baud_rate = 9600
 port = serial.Serial(COM_port, baud_rate)
 port.flushInput()
@@ -44,7 +45,7 @@ line = bytearray()
 file = open(csv_file_path, 'w+')
 file.write('Current,current_time\n')
 t1 = time.time()
-while True:
+while (time.time() - t1 < runtime):
     file = open(csv_file_path, 'a+')
     byte = port.read(size=1)
     if byte:
@@ -56,7 +57,7 @@ while True:
         for i in range(4):
             char, period = decode(packet[i])
             value.insert(0, char)
-            if i == 1:
+            if i == 2:
                 value.insert(0, '.')
 
         value = ''.join(value)
@@ -65,3 +66,6 @@ while True:
         current_time = time.strftime("%H:%M:%S", t)
         file.write(f'{value},{current_time}\n')
         file.close()
+
+port.close()
+file.close()

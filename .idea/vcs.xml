@@ -2,5 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Timing-Extraction/DUK" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Timing-Extraction/RRC_DUK" vcs="Git" />
   </component>
 </project>

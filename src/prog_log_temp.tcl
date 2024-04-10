@@ -44,5 +44,6 @@ proc program {bit_file} {
 }
 
 program [lindex $argv 0]
-log_temp [lindex $argv 1]
-#program {C:/Users/t26607bb/Desktop/blank_zu9eg_jtag.bit}
+if {[string compare [lindex $argv 1] None] != 0} {
+    log_temp [lindex $argv 1]
+}

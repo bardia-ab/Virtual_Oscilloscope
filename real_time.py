@@ -1,8 +1,7 @@
-# Another way to do it without clearing the Axis
-from itertools import count
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
+from pathlib import Path
 import time, datetime, sys
 
 def relative_time(reference_time, current_time):
@@ -15,7 +14,7 @@ def relative_time(reference_time, current_time):
 
 def reformat_time(time_column, reference_time):
     for i in range(len(time_column)):
-        time_column[i].loc = relative_time(reference_time, time_column[i])
+        time_column[i] = relative_time(reference_time, time_column[i])
 
     return time_column
 
@@ -28,8 +27,8 @@ fig, (ax1, ax2) = plt.subplots(nrows=2, ncols=1, sharex=True)
 ax1.plot([], [], color= '#0097A7', linewidth=2, marker='.')
 ax2.plot([], [], color= '#F50057', linewidth=2, marker='.')
 
-ax1.set_title('Current')
-ax2.set_title('Temperature')
+ax1.set_title('Current (A)')
+ax2.set_title('Temperature (\u00B0C)')
 ax1.set_xlim(0, 10)
 ax1.set_ylim(0, 100)
 ax2.set_xlim(0, 10)
@@ -46,8 +45,8 @@ def animate(i, reference_time):
         xlim_low, xlim_high = ax1.get_xlim()
         ylim_low, ylim_high = ax1.get_ylim()
 
-        ylim_low = max(ylim_low, y1.min()) - 5
-        ylim_high = y1.max() + 5
+        ylim_low = max(ylim_low, y1.min()) - 0.1
+        ylim_high = y1.max() + 0.1
         ax1.set_xlim(xlim_low, (x1.max() + 5))
         ax1.set_ylim(ylim_low, ylim_high)
     except:
@@ -86,4 +85,10 @@ ax2.tick_params(axis='both', labelsize=10)
 ax1.title.set_size(10)
 ax2.title.set_size(10)
 plt.tight_layout()
-plt.show()
+
+figure_out = sys.argv[3]
+runtime = sys.argv[4]
+plt.pause(int(runtime))
+#time.sleep(120)
+plt.savefig(figure_out)
+plt.clf()
